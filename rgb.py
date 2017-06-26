@@ -3,7 +3,7 @@ import ustruct
 
 
 def color565(r, g, b):
-    return (r & 0xf8) << 8 | (g & 0xfc) << 3 | b >> 3
+    return (b & 0xf8) << 8 | (g & 0xfc) << 3 | r >> 3
 
 
 class DummyPin:
@@ -140,30 +140,30 @@ class DisplaySPI(Display):
         super().__init__(width, height)
 
     def reset(self):
-        self.rst.low()
+        self.rst.value(0)
         utime.sleep_ms(50)
-        self.rst.high()
+        self.rst.value(1)
         utime.sleep_ms(50)
 
     def _write(self, command=None, data=None):
         if command is not None:
-            self.dc.low()
-            self.cs.low()
+            self.dc.value(0)
+            self.cs.value(0)
             self.spi.write(bytearray([command]))
-            self.cs.high()
+            self.cs.value(1)
         if data is not None:
-            self.dc.high()
-            self.cs.low()
+            self.dc.value(1)
+            self.cs.value(0)
             self.spi.write(data)
-            self.cs.high()
+            self.cs.value(1)
 
     def _read(self, command=None, count=0):
-        self.dc.low()
-        self.cs.low()
+        self.dc.value(0)
+        self.cs.value(0)
         if command is not None:
             self.spi.write(bytearray([command]))
         if count:
             data = self.spi.read(count)
-        self.cs.high()
+        self.cs.value(1)
         return data
 
