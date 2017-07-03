@@ -31,7 +31,7 @@ class ILI9341(DisplaySPI):
         (0xc1, b'\x10'),  # Power Control 2, SAP[2:0], BT[3:0]
         (0xc5, b'\x3e\x28'),  # VCM Control 1
         (0xc7, b'\x86'),  # VCM Control 2
-        (0x36, b'\x48'),  # Memory Access Control
+        (0x36, b'\x40'),  # Memory Access Control
         (0x3a, b'\x55'),  # Pixel Format
         (0xb1, b'\x00\x18'),  # FRMCTR1
         (0xb6, b'\x08\x82\x27'),  # Display Function Control
