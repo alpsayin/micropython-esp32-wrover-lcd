@@ -1,5 +1,5 @@
 import ustruct
-from rgb import DisplaySPI, color565
+from rgb import DisplaySPI
 
 
 class ILI9341(DisplaySPI):

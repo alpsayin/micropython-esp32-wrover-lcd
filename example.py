@@ -3,15 +3,11 @@ import random
 import ili9341
 import time
 import gc
+import colors
 from machine import Pin
-from rgb import TextArea
-from rgb import Graph
+from widgets import TextArea
+from widgets import Graph
 
-RED = 0xF800
-GREEN = 0x07E0
-BLUE = 0x001F
-BLACK = 0x0000
-WHITE = 0xFFFF
 
 # use VSPI (ID=2) at 20mhz
 spi = machine.SPI(2,
@@ -33,7 +29,7 @@ bl = Pin(5, Pin.OUT)
 bl.value(0)
 
 # fill the screen with some colored boxes
-(display.fill(WHITE))
+(display.fill(colors.WHITE))
 
 #        .rect(20, 20, 90, 90, RED)
 #        .rect(200, 20, 90, 90, GREEN)
