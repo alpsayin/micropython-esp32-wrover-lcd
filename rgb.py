@@ -122,7 +122,7 @@ class Display:
         if color is not None:
             self._bg = color
 
-        return self.rect(0, 0, self.width, self.height, color)
+        return self.fill_rectangle(0, 0, self.width, self.height, color)
 
     def hline(self, x, y, width, color=None):
         """Draw a horizontal line."""
@@ -201,6 +201,7 @@ class Display:
 
 
 class DisplaySPI(Display):
+
     def __init__(self, spi, dc, cs=None, rst=None, width=1, height=1):
         self.spi = spi
         self.cs = cs

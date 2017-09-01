@@ -9,7 +9,7 @@ from widgets import TextArea
 from widgets import Graph
 
 
-# use VSPI (ID=2) at 20mhz
+# use VSPI (ID=2) at 80mhz
 spi = machine.SPI(2,
                   baudrate=32000000,
                   mosi=Pin(23, Pin.OUT),  # mosi = 23

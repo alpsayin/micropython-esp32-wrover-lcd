@@ -1,18 +1,13 @@
+import colors
 import framebuf
 from framebuf import FrameBuffer
 from array import array
 
-RED = const(0xF800)
-GREEN = const(0x07E0)
-BLUE = const(0x001F)
-BLACK = const(0x0000)
-WHITE = const(0xFFFF)
-
 
 class Area(object):
 
-    def __init__(self, display, cols, rows, fg=WHITE, bg=BLACK, border=RED,
-                 padding=4, x=0, y=0):
+    def __init__(self, display, cols, rows, fg=colors.WHITE, bg=colors.BLACK,
+                 border=colors.RED, padding=4, x=0, y=0):
         self.buffer = None
         self.fb = None
         self.display = display
@@ -25,12 +20,13 @@ class Area(object):
         if hasattr(self, 'init'):
             self.init()
 
-    def initfb(self):
+    def init_fb(self):
         if self.buffer is None:
             self.buffer = bytearray(self.width * self.height * 2)
         if self.fb is None:
             self.fb = FrameBuffer(self.buffer, self.width, self.height,
                                   framebuf.RGB565)
+        return self.fb
 
     def free_fb(self):
         self.buffer = None
@@ -49,9 +45,9 @@ class Area(object):
         self.dirty = True
 
     def paint(self):
-        self.initfb()
-        self.fb.fill(self.bg)
-        self.fb.rect(0, 0, self.width, self.height, self.border)
+        fb = self.init_fb()
+        fb.fill(self.bg)
+        fb.fill_rect(0, 0, self.width, self.height, self.border)
 
     def blit(self):
         self.fb = None
