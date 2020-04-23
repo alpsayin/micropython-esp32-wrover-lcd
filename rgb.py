@@ -195,8 +195,11 @@ class Display:
         onerow = 2 * width
         for row in range(height):
             offset = row * onerow
-            self._block(x, y + row, x + width - 1, 1,
-                        view[offset:offset + onerow])
+            # Be careful uncommenting below lines, especially if you're blitzing a big buffer
+            # print('source range [{}:{})'.format(offset, offset+onerow))
+            # print('target min_corner:{},{} max_corner:{},{}'.format(x, y + row, x + width - 1, y + row))
+            # For Reference: self._block(x, y, x + w - 1, y + h - 1, b'')
+            self._block(x, y + row, x + width - 1, y + row, view[offset:offset + onerow])
 
 
 class DisplaySPI(Display):
