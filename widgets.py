@@ -45,7 +45,7 @@ class Area(object):
     def paint(self):
         fb = self.init_fb()
         fb.fill(self.bg)
-        fb.fill_rect(0, 0, self.width, self.height, self.border)
+        fb.rect(0, 0, self.width, self.height, self.border)
 
     def blit(self):
         self.fb = None
