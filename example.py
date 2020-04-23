@@ -28,19 +28,9 @@ display = ili9341.ILI9341(
 bl = Pin(5, Pin.OUT)
 bl.value(0)
 
-# fill the screen with some colored boxes
-(display.fill(colors.WHITE))
-
-#        .rect(20, 20, 90, 90, RED)
-#        .rect(200, 20, 90, 90, GREEN)
-#        .rect(114, 130, 90, 90, BLUE)
-#        .text("test 1 2 3", 125, 125, BLACK))
-
-random.seed(time.ticks_cpu() * time.ticks_us())
-
-
 def graph():
-    graph = Graph(display, 30, 8, x=10, y=150)
+    random.seed(time.ticks_cpu() * time.ticks_us())
+    graph = Graph(display, 30, 24, x=10, y=50, bg=0, fg=colors.RGB_YELLOW)
     graph.point(10)
     for i in range(50):
         v = random.randint(0, 10)
@@ -54,11 +44,41 @@ def graph():
 
 def text():
     gc.collect()
-    txtarea = TextArea(display, 30, 10, x=10, y=10)
+    txtarea = TextArea(display, 30, 10, x=10, y=10, bg=colors.RGB_WHITE, fg=colors.RGB_PURPLE)
     for i in range(10):
         txtarea.append("test %d" % i)
         txtarea.append("free %d" % gc.mem_free())
         txtarea.paint()
 
-graph()
-text()
+def test():
+    import framebuf, gc, micropython
+    # direct display access test
+    (display.fill(colors.BGR565_WHITE))
+    display.fill_rectangle(20, 20, 90, 90, colors.BGR565_RED)
+    display.fill_rectangle(200, 20, 90, 90, colors.BGR565_GREEN)
+    display.fill_rectangle(114, 130, 90, 90, colors.BGR565_BLUE)
+    display.text("test 1 2 3", 20, 20, colors.BGR565_BLACK, colors.BGR565_WHITE)
+    # framebuffered access tesst
+    rawbuffer = bytearray(display.width*display.height*2)
+    fb = framebuf.FrameBuffer(rawbuffer, display.width, display.height, framebuf.RGB565)
+    fb.fill(colors.BGR565_RED)
+    display.blit_buffer(rawbuffer, 0, 0, display.width, display.height)
+    fb.fill(colors.BGR565_GREEN)
+    display.blit_buffer(rawbuffer, 0, 0, display.width, display.height)
+    fb.fill(colors.BGR565_BLUE)
+    display.blit_buffer(rawbuffer, 0, 0, display.width, display.height)
+    fb.fill(colors.BGR565_BLACK)
+    display.blit_buffer(rawbuffer, 0, 0, display.width, display.height)
+
+    # Higher level access
+    text()
+    fb.fill(colors.BGR565_BLACK)
+    display.blit_buffer(rawbuffer, 0, 0, display.width, display.height)
+
+    display.text("Random plot", 10, 10, colors.BGR565_BLACK, colors.BGR565_WHITE)
+    graph()
+    micropython.mem_info()
+    fb = None
+    rawbuffer = None
+    gc.collect()
+    micropython.mem_info()
