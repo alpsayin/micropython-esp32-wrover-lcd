@@ -1,5 +1,5 @@
-RED = const(0xF800)
+BLUE = const(0xF800)
 GREEN = const(0x07E0)
-BLUE = const(0x001F)
+RED = const(0x001F)
 BLACK = const(0x0000)
 WHITE = const(0xFFFF)
