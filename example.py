@@ -21,8 +21,8 @@ display = ili9341.ILI9341(
     cs=Pin(22, Pin.OUT),          # cs   = 22
     dc=Pin(21, Pin.OUT),          # dc   = 21
     rst=Pin(18, Pin.OUT),         # rst  = 18
-    width=320,
-    height=240)
+    width=240,
+    height=320)
 
 # turn on the backlight
 bl = Pin(5, Pin.OUT)
