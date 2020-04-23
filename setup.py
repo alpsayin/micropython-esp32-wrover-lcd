@@ -16,11 +16,11 @@ setup(
     description="Drivers for RGB displays for MicroPython.",
     long_description="""\
 This library lets you use a number of popular RGB displays with MicroPython.""",
-    author='Radomir Dopieralski',
     author_email='micropython@sheep.art.pl',
+    author='Radomir Dopieralski, Mukunda Modell, Alp Sayin',
     classifiers = [
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
     ],
-    url="https://bitbucket.org/thesheep/micropython-rgb",
+    url="https://github.com/alpsayin/micropython-esp32-wrover-lcd",
 )
