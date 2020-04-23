@@ -23,8 +23,7 @@ class Area(object):
         if self.buffer is None:
             self.buffer = bytearray(self.width * self.height * 2)
         if self.fb is None:
-            self.fb = FrameBuffer(self.buffer, self.width, self.height,
-                                  framebuf.RGB565)
+            self.fb = FrameBuffer(self.buffer, self.width, self.height, framebuf.RGB565)  # noqa: E501
         return self.fb
 
     def free_fb(self):
