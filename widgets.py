@@ -6,8 +6,7 @@ from array import array
 
 class Area(object):
 
-    def __init__(self, display, cols, rows, fg=colors.WHITE, bg=colors.BLACK,
-                 border=colors.RED, padding=4, x=0, y=0):
+    def __init__(self, display, rows, cols, fg=colors.RGB_WHITE, bg=colors.RGB_BLACK, border=colors.RGB_RED, padding=4, x=0, y=0):  # noqa: E501
         self.buffer = None
         self.fb = None
         self.display = display
@@ -51,8 +50,7 @@ class Area(object):
 
     def blit(self):
         self.fb = None
-        self.display.blit_buffer(
-            self.buffer, self.x, self.y, self.width, self.height)
+        self.display.blit_buffer(self.buffer, self.x, self.y, self.width, self.height)  # noqa: E501
         self.buffer = None
 
 

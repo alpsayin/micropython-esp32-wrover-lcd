@@ -72,8 +72,7 @@ class Display:
         self._write(self._PAGE_SET, self._encode_pos(y0, y1))
         if data is None:
             size = ustruct.calcsize(self._DECODE_PIXEL)
-            return self._read(self._RAM_READ,
-                              (x1 - x0 + 1) * (y1 - y0 + 1) * size)
+            return self._read(self._RAM_READ, (x1 - x0 + 1) * (y1 - y0 + 1) * size)  # noqa: E501
         self._write(self._RAM_WRITE, data)
 
     def _encode_pos(self, a, b):
